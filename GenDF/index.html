@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <!-- TODO: Replace with your paper title and author names -->
+  <meta name="title" content="Patch-Discontinuity Mining for Generalized Deepfake Detection">
+  <!-- TODO: Write a compelling 150-160 character description of your research -->
+  <meta name="description" content="GenDF is a parameter-efficient framework for generalized deepfake detection that learns patch discontinuities with LoRA-based adaptation, feature-space redistribution, and class-invariant feature augmentation, using only 0.28M trainable parameters.">
+  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="keywords" content="deepfake detection, generalized deepfake detection, parameter-efficient fine-tuning, LoRA, vision transformer, computer vision, AI">
+  <!-- TODO: List all authors -->
+  <meta name="author" content="Huanhuan Yuan, Yang Ping, Zhengqin Xu,  Junyi Cao, Shuai Jia, and Chao Ma">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <!-- TODO: Replace with your institution or lab name -->
+  <meta property="og:site_name" content="Shanghai Jiao Tong University">
+  <!-- TODO: Same as paper title above -->
+  <meta property="og:title" content="Patch-Discontinuity Mining for Generalized Deepfake Detection">
+  <!-- TODO: Same as description above -->
+  <meta property="og:description" content="GenDF is a parameter-efficient framework for generalized deepfake detection that learns patch discontinuities with LoRA-based adaptation, feature-space redistribution, and class-invariant feature augmentation, using only 0.28M trainable parameters.">
+  <!-- TODO: Replace with your actual website URL -->
+  <meta property="og:url" content="https://huanhuanyuan7.github.io/GenDF/">
+  <!-- TODO: Create a 1200x630px preview image and update path -->
+  <meta property="og:image" content="https://huanhuanyuan7.github.io/GenDF/static/images/teaser.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GenDF - Research Preview">
+  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
+  <meta property="article:author" content="FIRST_AUTHOR_NAME">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="KEYWORD1">
+  <meta property="article:tag" content="KEYWORD2">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- TODO: Replace with your lab/institution Twitter handle -->
+  <!-- TODO: Replace with first author's Twitter handle -->
+  <!-- TODO: Same as paper title above -->
+  <meta name="twitter:title" content="Patch-Discontinuity Mining for Generalized Deepfake Detection">
+  <!-- TODO: Same as description above -->
+  <meta name="twitter:description" content="GenDF is a parameter-efficient framework for generalized deepfake detection that learns patch discontinuities with LoRA-based adaptation, feature-space redistribution, and class-invariant feature augmentation, using only 0.28M trainable parameters.">
+  <!-- TODO: Same as social preview image above -->
+  <meta name="twitter:image" content="https://huanhuanyuan7.github.io/GenDF/static/images/teaser.png">
+  <meta name="twitter:image:alt" content="GenDF - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Patch-Discontinuity Mining for Generalized Deepfake Detection">
+  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
+  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_journal_title" content="IEEE Transactions on Multimedia">
+  <meta name="citation_public_url" content="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=P3-e6RYAAAAJ&citation_for_view=P3-e6RYAAAAJ:9yKSN-GCB0IC">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <!-- TODO: Replace with your paper title and authors -->
+  <title>Patch-Discontinuity Mining for Generalized Deepfake Detection | Huanhuan Yuan</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Patch-Discontinuity Mining for Generalized Deepfake Detection",
+    "description": "GenDF is a parameter-efficient framework for generalized deepfake detection that learns patch discontinuities with LoRA-based adaptation, feature-space redistribution, and class-invariant feature augmentation, using only 0.28M trainable parameters.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "FIRST_AUTHOR_NAME",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "INSTITUTION_NAME"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SECOND_AUTHOR_NAME",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "INSTITUTION_NAME"
+        }
+      }
+    ],
+    "datePublished": "2024-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "IEEE Transactions on Multimedia"
+    },
+    "url": "https://huanhuanyuan7.github.io/GenDF/",
+    "image": "https://huanhuanyuan7.github.io/GenDF/static/images/teaser.png",
+    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
+    "abstract": "FULL_ABSTRACT_TEXT_HERE",
+    "citation": "BIBTEX_CITATION_HERE",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "RESEARCH_AREA_1"
+      },
+      {
+        "@type": "Thing", 
+        "name": "RESEARCH_AREA_2"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Shanghai Jiao Tong University",
+    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
+    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/YOUR_TWITTER_HANDLE",
+      "https://github.com/YOUR_GITHUB_USERNAME"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Works from Our Lab</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <!-- TODO: Replace with your lab's related works -->
+        <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
+          <div class="work-info">
+            <!-- TODO: Replace with actual paper title -->
+            <h5>Paper Title 1</h5>
+            <!-- TODO: Replace with brief description -->
+            <p>Brief description of the work and its main contribution.</p>
+            <!-- TODO: Replace with venue and year -->
+            <span class="work-venue">Conference/Journal 2024</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <!-- TODO: Add more related works or remove extra items -->
+        <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Paper Title 2</h5>
+            <p>Brief description of the work and its main contribution.</p>
+            <span class="work-venue">Conference/Journal 2023</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Paper Title 3</h5>
+            <p>Brief description of the work and its main contribution.</p>
+            <span class="work-venue">Conference/Journal 2023</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- TODO: Replace with your paper title -->
+            <h1 class="title is-1 publication-title">Patch-Discontinuity Mining for Generalized Deepfake Detection</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: Replace with your paper authors and their personal links -->
+              <span class="author-block">
+                <a href="https://huanhuanyuan7.github.io/" target="_blank">Huanhuan Yuan</a><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Yang Ping</a><sup>2,*</sup>,</span>
+                  <span class="author-block">
+                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Zhengqin Xu</a><sup>1</sup>,</span>
+                      <span class="author-block">
+                      <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Junyi Cao</a><sup>1</sup>,</span>
+                        <span class="author-block">
+                        <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Shuai Jia</a><sup>1</sup>,</span>
+                          <span class="author-block">
+                          <a href="https://vision.sjtu.edu.cn/" target="_blank">Chao Ma</a><sup>1,*</sup></span>
+                  </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <!-- TODO: Replace with your institution and conference/journal info -->
+                    <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University,</span>
+                    <span class="author-block"><sup>2</sup>Chinese Academy of Military Science</span>
+                    <!-- TODO: Remove this line if no equal contribution -->
+                  </div>
+
+                  <!--
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      
+                      <span class="link-block">
+                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+                  -->
+            
+
+                  <span class="link-block">
+                    <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=P3-e6RYAAAAJ&citation_for_view=P3-e6RYAAAAJ:9yKSN-GCB0IC" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-alt"></i></span>
+                    <span>Paper</span>
+                    </a>
+                  </span>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<!--  
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified" style="line-height:1.4; margin-bottom:0.4em;">
+          <p>
+             The advancement of generative artificial intelligence has led to the creation of more diverse and realistic fake facial images. This poses serious threats to personal privacy and can contribute to the spread of misinformation. Existing deepfake detection methods usually utilize prior knowledge about forged clues to design complex modules, achieving excellent performance in the intra-domain settings. However, their performance usually suffers from a significant decline in unseen forgery patterns. It is thus desirable to develop a generalized deepfake detection method using a neat network structure. In this paper, we propose a simple yet efficient framework to transfer a powerful large-scale vision model like ViT to the downstream deepfake detection task, namely the generalized deepfake detection framework (GenDF). Concretely, we first propose a deepfake-specific representation learning (DSRL) scheme to learn different discontinuity patterns across patches inside a fake facial image and continuity between patches within a real counterpart in a low-dimensional space. To further alleviate the distribution mismatch between generic real images and human facial images consisting of both real and fake, we introduce a feature space redistribution (FSR) scheme to separately optimize the distributions of real and fake feature space, enabling the model to learn more distinctive representations. Furthermore, to enhance the generalization performance on unseen forgery patterns produced by constantly evolving facial manipulation techniques and diverse variations on real faces, we propose a classification-invariant feature augmentation (CIFAug) function without trainable parameters. CIFAug expands the scopes of real and fake feature space along directions orthogonal to the classification direction, enabling the model to learn more generalizable features while preserving discrimination. Extensive experiments demonstrate that our method achieves state-of-the-art generalization performance in cross-domain and cross-manipulation settings with only 0.28M trainable parameters.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+<!-- End paper abstract -->
+
+<!-- Paper abstract with side image (auto wrapping) -->
+<section class="section hero is-light">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered">
+            <div class="column is-four-fifths">
+
+                <h2 class="title is-3 has-text-centered">Abstract</h2>
+
+                <div class="content has-text-justified abstract-wrap" style="line-height:1.4;">
+
+                    <!-- Right floating image -->
+                    <figure class="abstract-float-figure">
+                        <img src="static/images/teaser.png" alt="Overview image">
+                    </figure>
+
+                    <!-- One single paragraph -->
+                    <p>
+                        The advancement of generative artificial intelligence has led to the creation of more diverse
+                        and realistic fake facial images. This poses serious threats to personal privacy and can
+                        contribute to the spread of misinformation. Existing deepfake detection methods usually
+                        utilize prior knowledge about forged clues to design complex modules, achieving excellent
+                        performance in the intra-domain settings. However, their performance usually suffers from a
+                        significant decline in unseen forgery patterns. It is thus desirable to develop a generalized
+                        deepfake detection method using a neat network structure. In this paper, we propose a simple
+                        yet efficient framework to transfer a powerful large-scale vision model like ViT to the
+                        downstream deepfake detection task, namely the generalized deepfake detection framework
+                        (GenDF). Concretely, we first propose a deepfake-specific representation learning (DSRL)
+                        scheme to learn different discontinuity patterns across patches inside a fake facial image
+                        and continuity between patches within a real counterpart in a low-dimensional space.
+                        To further alleviate the distribution mismatch between generic real images and human facial
+                        images consisting of both real and fake, we introduce a feature space redistribution (FSR)
+                        scheme to separately optimize the distributions of real and fake feature space, enabling the
+                        model to learn more distinctive representations. Furthermore, to enhance the generalization
+                        performance on unseen forgery patterns produced by constantly evolving facial manipulation
+                        techniques and diverse variations on real faces, we propose a classification-invariant
+                        feature augmentation (CIFAug) function without trainable parameters. Extensive experiments
+                        demonstrate that our method achieves state-of-the-art generalization performance in
+                        cross-domain and cross-manipulation settings with only 0.28M trainable parameters.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- ===================== Method ===================== -->
+<section class="section" id="method">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Method</h2>
+
+                <!-- Method figure -->
+                <figure class="image mt-5">
+                    <img src="static/images/pipe.png" alt="Method overview">
+                </figure>
+
+                <!-- Caption / description -->
+                <div class="content has-text-justified mt-4" style="line-height:1.4; margin-bottom:1.0em;" >
+                    <p>
+                        The pipeline of the proposed GenDF framework. The facial images (real or fake) first enter a ViT backbone for representation embedding in a low-dimensional space. Then, we optimize the distributions to learn more discriminative features. Next, these two kinds of features go through the class-invariant feature augmentation procedure to improve the generalization abilities of our method.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ===================== End Method ===================== -->
+
+<!-- ===================== Experimental Results ===================== -->
+<section class="section" id="results">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered " >
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Experimental Results</h2>
+
+                <!-- Quantitative table as an image (same look as your screenshot) -->
+                <!-- 1) enlarge -->
+                <figure class="image mt-5 result-figure result-figure-lg">
+                    <img src="static/images/cross-domain.png" alt="Quantitative results table">
+                </figure>
+
+                <div class="content has-text-justified mt-4" style="line-height:1.4;">
+                    <p>
+                        The comparison of intra-domain performance on FF++, Celeb-DF, DFDC and DFD datasets. 
+                        Observations show that GenDF consistently surpasses all existing competitors, regardless of whether the custom-made, pre-trained, or fine-tuned methods.
+                    </p>
+                </div>
+
+                <!-- 2) shrink -->
+                <figure class="image mt-5 result-figure result-figure-ms">
+                    <img src="static/images/image4.png" alt="Quantitative results table">
+                </figure>
+
+                <div class="content has-text-justified mt-4" style="line-height:1.4;">
+                    <p>
+                        Cross-domain evaluations by training on FF++(HQ) and evaluating on other datasets.
+                        The results domonstrate that GenDF achieves state-of-the-art generalization performance with the minimal trainable parameters compared with all existing deepfake detection methods,
+                        validating that our framework is remarkably simple but highly effective. 
+                    </p>
+                </div>
+                
+                <!--  
+                <figure class="image mt-6 result-figure result-figure-md">
+                    <img src="static/images/intra-domain2.png" alt="Quantitative results table">
+                </figure>
+
+                <div class="content has-text-justified mt-4" style="line-height:1.4;">
+                    <p>
+                        Evaluation performance on cross-manipulation settings in terms of AUC on FF++(HQ) Dataset. Cells in gray denote the intra-manipulation results. 
+                        The results demonstrate that ours+ViT outperforms the pretrained CNN-based models and the fully fine-tuned UIA-ViT, demonstrating superior generalization to unseen forgery patterns.
+                    </p>
+                </div>
+                -->
+
+                <!-- Qualitative figure -->
+                <!-- 4) shrink -->
+                <figure class="image mt-6 result-figure result-figure-md">
+                    <img src="static/images/cam.png" alt="Qualitative results">
+                </figure>
+
+                <div class="content has-text-justified mt-4" style="line-height:1.4;">
+                    <p>
+                        The Grad-CAM activation map of real and fake representations learned by the ViT backbone and our GenDF on the FF++(HQ) dataset. 
+                        GenDF precisely captures the discriminative patterns of both authentic and various forged facial images generated by various manipulation techniques, outperforming the vanilla ViT model.
+                    </p>
+                </div>
+
+                <!-- last) enlarge -->
+                <figure class="image mt-6 result-figure result-figure-lg">
+                    <img src="static/images/t-sne.png" alt="Qualitative results">
+                </figure>
+
+                <div class="content has-text-justified mt-4" style="line-height:1.4;">
+                    <p>
+                        The t-SNE feature distribution visualization of real and forged facial images obtained by the baseline model (ViT) and the proposed method (GenDF) under the intra-testing and the cross-testing settings. 
+                        (a) ViT on the intra-testing dataset (FF++). (b) Ours+ViT on the intra-testing dataset (FF++). 
+                        (c) Ours+ViT on the cross-testing dataset (DFD). (d) Ours+ViT without Class Invariant Augmentation (CIFAug) function on the cross-testing dataset (DFD).
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ===================== End Experimental Results ===================== -->
+
+
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
+  title={Patch-Discontinuity Mining for Generalized Deepfake Detection},
+  author={Huanhuan Yuan and Yang Ping and Zhengqin Xu and Junyi Cao and Shuai Jia and Chao Ma},
+  journal={Conference/Journal Name},
+  year={2025},
+  url={https://your-domain.com/your-project-page}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
